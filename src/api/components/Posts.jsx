@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { getPosts } from "../postApi";
+import { getPosts,deletePost} from "../postApi";
+import Form from "./Form";
 
 function Posts() {
   const [data, setData] = useState([]);
-  const [updateDataApi, setUpdateDataApi] = useState(false);
+  const [updateDataApi, setUpdateDataApi] = useState({});
   const getPostData = async () => {
     const res = await getPosts();
     console.log(res.data);
     setData(res.data);
   };
+
   useEffect(() => {
     getPostData();
   }, []);
+
   const handleDeletePost = async (id) => {
     try {
       const res = await deletePost(id);
@@ -30,11 +33,11 @@ function Posts() {
   return (
     <>
       <section className="section-form">
-        <Form 
-            data={data}
-            setData={setData}
-            updateDataApi={updateDataApi}
-            setUpdateDataApi={setUpdateDataApi}
+        <Form
+          data={data}
+          setData={setData}
+          updateDataApi={updateDataApi}
+          setUpdateDataApi={setUpdateDataApi}
         />
       </section>
       <section className="section-post">
